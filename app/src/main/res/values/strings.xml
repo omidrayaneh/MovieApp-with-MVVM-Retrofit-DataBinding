@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">kharidchi movie app</string>
+    <string name="api_key">7082d01cf3396e20c98f7e099ce301e2</string>
+    <string name="title_activity_movie">MovieActivity</string>
+</resources>
