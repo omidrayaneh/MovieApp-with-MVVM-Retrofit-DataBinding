@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
 import com.omidrayaneh.kharidchimovieapp.R;
@@ -20,13 +22,15 @@ import com.omidrayaneh.kharidchimovieapp.view.MovieActivity;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieAdapter extends PagedListAdapter<Movie,MovieAdapter.MovieViewHolder> {
     private Context context;
-    private ArrayList<Movie> movieArrayList;
 
-    public MovieAdapter(Context context, ArrayList<Movie> movieArrayList) {
+
+    public MovieAdapter(Context context) {
+
+        super(Movie.CALLBACK);
         this.context = context;
-        this.movieArrayList = movieArrayList;
+
     }
 
     @NonNull
@@ -42,15 +46,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
 
-        Movie movie=movieArrayList.get(position);
+        Movie movie=getItem(position);
         holder.movieListItemBinding.setMovie(movie);
 
        }
 
-    @Override
-    public int getItemCount() {
-        return movieArrayList.size();
-    }
+
 
 
     public class MovieViewHolder extends RecyclerView.ViewHolder{
@@ -69,7 +70,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                public void onClick(View v) {
 
                    int position=getAdapterPosition();
-                  Movie selectedMovie=movieArrayList.get(position);
+                  Movie selectedMovie=getItem(position);
                    Intent intent = new Intent(context, MovieActivity.class);
 
                    intent.putExtra("movies",selectedMovie);
